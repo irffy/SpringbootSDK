@@ -5,10 +5,8 @@ public class User {
     private String name;
     private String email;
 
-    // Default constructor (required by Spring)
     public User() {}
 
-    // Constructor
     public User(int id, String name, String email) {
         this.id = id;
         this.name = name;

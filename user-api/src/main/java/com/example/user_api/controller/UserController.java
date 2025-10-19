@@ -1,27 +1,49 @@
 package com.example.user_api.controller;
 
 import com.example.user_api.model.User;
+import com.example.user_api.service.UserService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    // In-memory store to hold users temporarily
-    private Map<Integer, User> userStore = new HashMap<>();
+    private final UserService userService;
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable int id) {
-        return userStore.getOrDefault(id, new User(id, "Unknown", "N/A"));
+    // Constructor injection
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
+    // Create
     @PostMapping
     public User createUser(@RequestBody User user) {
-        // Save user (in-memory)
-        userStore.put(user.getId(), user);
-        return user;
+        return userService.createUser(user);
+    }
+
+    // Read All
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    // Read One
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
+    }
+
+    // Update
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
+    // Delete
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+        return "User deleted with ID: " + id;
     }
 }
