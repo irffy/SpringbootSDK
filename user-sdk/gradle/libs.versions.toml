@@ -2,7 +2,10 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-kotlin-gradle-plugin = "2.2.0"
+guava = "33.4.6-jre"
 
 [libraries]
-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.2.0" }
